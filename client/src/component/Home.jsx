@@ -7,8 +7,13 @@ const Base_URL = "http://localhost:4000"
 const Home = () => {
   const [users, setUsers] = useState(0)
   async function fetchAllusersName(){
-    const res = await axios.get(`${Base_URL}/getallusers`);
-    console.log(res);
+    try {
+      const res = await axios.get(`${Base_URL}/getallusers`);
+      console.log(res);
+    } catch (error) {
+      console.log(error.message)
+    }
+    
   }
   
   

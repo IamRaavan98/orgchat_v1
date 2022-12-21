@@ -20,18 +20,21 @@ const SignUp = () => {
     if (!name || !email || !password) {
       setMandatoryFields("All fields are mandatory");
     } else {
-      const res = await axios.post(`${Base_URL}/signup`, {
-        name: name,
-        email: email,
-        password: password,
-      });
-       
-      
-      if (res.data != "user already exists") {
-        navigate("/Home", { state: res.config.data });
-      } else {
-        setWarning("You are already registerd Please Login");
+      try {
+        const res = await axios.post(`${Base_URL}/signup`, {
+          name: name,
+          email: email,
+          password: password,
+        });
+        if (res.data != "user already exists") {
+          navigate("/Home", { state: res.config.data });
+        } else {
+          setWarning("You are already registerd Please Login");
+        }
+      } catch (error) {
+        console.log(error.message);
       }
+      
     }
   };
 

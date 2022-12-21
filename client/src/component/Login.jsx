@@ -20,19 +20,22 @@ const Login= () => {
       setMandatoryFields("All fields are mandatory");
     } else {
 
-      const res = await axios.post(`${Base_URL}/login`, {
-        email: email,
-        password: password,
-      });
-       console.log(res);
-      if (typeof res.data != "string") {
-        navigate("/Home", { state: res.config.data });
-      } else {
-        setWarning(res.data);
-        setEmail("")
-        setPassword("")
-
-      }
+        try {
+          const res = await axios.post(`${Base_URL}/login`, {
+            email: email,
+            password: password,
+          });
+          console.log(res);
+         if (typeof res.data != "string") {
+           navigate("/Home", { state: res.config.data });
+         } else {
+           setWarning(res.data);
+           setEmail("")
+           setPassword("")
+         }
+        } catch (error) {
+          console.log(error.message);
+        }
 
     }
   };
