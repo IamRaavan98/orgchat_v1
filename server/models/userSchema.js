@@ -3,6 +3,7 @@ const bcrypt = require('bcrypt');
 const token = require("jsonwebtoken")
 const dotenv = require("dotenv");
 dotenv.config()
+
 const userSchema = new mongoose.Schema(
   {
     name:{
@@ -17,11 +18,12 @@ const userSchema = new mongoose.Schema(
         type:String,
         required: [true, "password is required"],
     },
-    
   },
+  
   {
     timestamps:true,
   },
+
 )
 // userSchema.pre('save',async function(next){
 //     if(this.isModified("password")){

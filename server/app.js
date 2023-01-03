@@ -2,8 +2,9 @@ require("dotenv").config();
 const express = require('express')
 const app = express()
 const cors = require("cors");
-const cookieParser = require('cookie-parser')
-const routes = require("./routes/routes")
+var cookieParser = require("cookie-parser");
+const user = require("./routes/userRouter")
+const message = require("./routes/messageRoute")
 //connection to database
 const DBconnection = require("./config/DB")
 
@@ -12,8 +13,10 @@ const DBconnection = require("./config/DB")
 app.use(cookieParser())
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }));
-app.use(cors());
+app.use(cors({
+    origin:"*",
+}));
 DBconnection();
-app.use("/",routes)
-
+app.use("/",user)
+app.use("/message",message)
 module.exports = app;
