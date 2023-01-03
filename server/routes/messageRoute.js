@@ -7,8 +7,8 @@ const { addmessage, DeleteMessages, fetchmessages } = require("../controllers/me
 const { checkLoginOrNot } = require("../middleware/auth");
 
 
-MessageRouter.post("/addmessage",checkLoginOrNot,addmessage)
-MessageRouter.get("/fetchmessages",checkLoginOrNot,fetchmessages)
+MessageRouter.post("/addmessage/:id",checkLoginOrNot,addmessage)
+MessageRouter.get("/fetchmessages/:id",checkLoginOrNot,fetchmessages)
 
 
 MessageRouter.delete("/DeleteMessages",checkLoginOrNot,DeleteMessages)
