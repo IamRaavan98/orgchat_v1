@@ -3,18 +3,21 @@ const User = require("./userSchema")
 const messageSchema = new mongoose.Schema({
     person1:{
         type:String,
-        default:undefined,
+        default:null,
     },
     person2:{
         type:String,
-        default:undefined,
+        default:null
     },
-   
     chats:[
         {
-            message:String,
+            message:{
+                type:String,
+                 default:null
+            },
             date:String,
             time:String,
+            
         },
         ],
 },
