@@ -9,7 +9,7 @@ const Login= () => {
   const [password, setPassword] = useState("");
   const [mandatoryfields, setMandatoryFields] = useState(false);
   const [warning, setWarning] = useState("");
-  const Base_URL = "http://localhost:4000"
+  const Base_URL = "http://localhost:3000"
 
   //Submit
   const navigate = useNavigate();
@@ -21,20 +21,20 @@ const Login= () => {
     } else {
 
         try {
-          const res = await axios.post(`${Base_URL}/login`, {
+          const res = await axios.post(`/login`, {
             email: email,
             password: password,
           });
-          console.log(res);
+          // console.log("helo brother",res);
          if (typeof res.data != "string") {
-           navigate("/Home", { state: res.config.data });
+           navigate("/home", { state: res.config.data });
          } else {
            setWarning(res.data);
            setEmail("")
            setPassword("")
          }
         } catch (error) {
-          console.log(error.message);
+          console.log("try catch error",error.message);
         }
 
     }
@@ -46,7 +46,7 @@ const Login= () => {
     }
   return (
     <>
-      <div className="flex min-h-full items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+  <div className="flex min-h-full items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
         <div className="w-full max-w-md space-y-8">
           <div className="flex flex-col">
             <p className="mt-6 text-center text-3xl font-bold">TODO app</p>

@@ -1,48 +1,35 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-const Base_URL = "http://localhost:4000"
-
-
+// const Base_URL = "http://localhost:4000";
+import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import Chat from "./Chat";
+import User from "./User";
 
 const Home = () => {
-  const [users, setUsers] = useState(0)
-  async function fetchAllusersName(){
-    try {
-      const res = await axios.get(`${Base_URL}/getallusers`);
-      console.log(res);
-    } catch (error) {
-      console.log(error.message)
-    }
-    
-  }
-  
-  
-  useEffect(()=>{
-      fetchAllusersName();
-  },[users])
-  return(
-    <div>
-      <div className="flex flex-row">
-        <div className="border-4 border-black">
-               o<div>
-                  <input type="text" />
-                  <label htmlFor="">search</label>
-                </div>
-                <div>
-                  <tr>
-                    <td>
-                        
-                    </td>
-                  </tr>
-                </div>
+  const [id, setId] = useState();
+  const [idFrom, setIdFrom] = useState();
+   const [messageData,setMessageData] = useState()
+  const talktoPerson =async (id) => {
+    setId(id);
+    const {data}= await axios.get(`message/fetchmessages/${id}`)
+    setMessageData(data)
+    setIdFrom(data.person1.from);
 
-        </div>
-        <div>
-               <p>test</p>
-        </div>
+    // console.log(id,data.person1.from);
+   
+    // console.log(data);
+    
+    }
+
+  return (
+    <div  className="flex flex-row">
+      <div className="border-4 ">
+        <User talktoPerson={talktoPerson} />
+      </div>
+      <div>
+        <Chat id={idFrom}  data={messageData} talktoPerson={talktoPerson} />
       </div>
     </div>
-  )
-
+  );
 };
 export default Home;

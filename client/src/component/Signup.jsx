@@ -11,6 +11,7 @@ const SignUp = () => {
   const [warning, setWarning] = useState("");
   const Base_URL = "http://localhost:4000"
   //Submit
+
   // console.log(name,"name");
 
   const navigate = useNavigate();
@@ -27,7 +28,7 @@ const SignUp = () => {
           password: password,
         });
         if (res.data != "user already exists") {
-          navigate("/Home", { state: res.config.data });
+          navigate("/home", { state: res.config.data });
         } else {
           setWarning("You are already registerd Please Login");
         }

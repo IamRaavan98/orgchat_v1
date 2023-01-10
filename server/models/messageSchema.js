@@ -1,22 +1,13 @@
 const mongoose = require("mongoose");
 const User = require("./userSchema");
 const messageSchema = new mongoose.Schema(
+  
   {
     person1: {
-      p1: String,
-      user: {
-        type: mongoose.Schema.ObjectId,
-        ref: "User",
-        required: true,
-      },
+      from: String,
     },
     person2: {
-      p2: String,
-      user: {
-        type: mongoose.Schema.ObjectId,
-        ref: "User",
-        required: true,
-      },
+      to: String,
     },
     chats: [
       {

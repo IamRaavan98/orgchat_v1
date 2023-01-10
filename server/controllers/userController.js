@@ -128,7 +128,7 @@ exports.getallusers = async(req,res)=>{
     try {
   const token = req.cookies.token || req.body.token
         if(!token){
-             res.status(403).send("token is missing");
+             res.status(404).send("token is missing");
         }
             const decode = jwt.verify(token, process.env.SECRET_KEY);
              req.user = decode; 
