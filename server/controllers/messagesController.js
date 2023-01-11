@@ -49,7 +49,7 @@ exports.addmessage = async (req, res) => {
     }
 
     // so below if statement is just checking that person1 and person2 should have names so if it true means they are new pair chatting
-
+  //  console.log(idFrom,idTo);
     if (!updatingMessage) {
       updatingMessage = await Message.create({
         person1:{

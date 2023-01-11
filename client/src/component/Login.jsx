@@ -1,11 +1,14 @@
-import React from "react";
+import React, {createContext} from "react";
 import axios from "axios";
 import { useState } from "react";
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink, Route,Link, useNavigate } from "react-router-dom";
+
+import Home from "./Home";
 
 const Login= () => {
 
   const [email, setEmail] = useState(" ");
+  const [id, setId] = useState();
   const [password, setPassword] = useState("");
   const [mandatoryfields, setMandatoryFields] = useState(false);
   const [warning, setWarning] = useState("");
@@ -15,7 +18,7 @@ const Login= () => {
   const navigate = useNavigate();
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+ 
     if (!email || !password) {
       setMandatoryFields("All fields are mandatory");
     } else {
@@ -25,13 +28,18 @@ const Login= () => {
             email: email,
             password: password,
           });
-          // console.log("helo brother",res);
-         if (typeof res.data != "string") {
-           navigate("/home", { state: res.config.data });
+        
+          
+          if (typeof res.data != "string" &&res) {
+           setId(res.data.user._id)
+
+           
+          //  navigate(`/home?id=${res.data.user._id}`, { state: res.config.data });
+          
          } else {
            setWarning(res.data);
-           setEmail("")
-           setPassword("")
+           setEmail(" ")
+           setPassword(" ")
          }
         } catch (error) {
           console.log("try catch error",error.message);
@@ -130,12 +138,17 @@ const Login= () => {
                 type="submit"
                 className="group relative flex w-full justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
               >
-                login
+               {id != null?(<Link to={`/home/${id}`}>Login</Link>):(
+                 <p>LOGIN</p>
+
+               )} 
               </button>
+
             </div>
           </form>
         </div>
       </div>
+
     </>
   );
 };

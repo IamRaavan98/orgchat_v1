@@ -6,12 +6,14 @@ import {
   Routes,
   Route,
   Link,
+  useParams,
 } from "react-router-dom";
 import Chat from "./Chat";
 
 const User = ({talktoPerson}) => {
   const [names, setNames] = useState("");
   const [users, setUsers] = useState(null);
+ 
   async function fetchAllusersName() {
     try {
       const res = await axios.get(`/getallusers`);
@@ -37,20 +39,20 @@ const User = ({talktoPerson}) => {
 
       <div className="flex flex-row">
         <div className="flex flex-row">
-          <div className="border-2 border-black h-screen">
+          <div className="border-2 border-black h-screen w-[350px]">
             <div>
               <input type="text" />
               <label htmlFor="">search</label>
             </div>
 
             <div className="">
-              <tr className="">
+              <tr className="]">
                 <td className=" ">
                   {names &&
                     names.map((nameofEmplyee) => (
-                        <h2 className="border-2 border-red-600 px-2 py-2 w-[200px] cursor-pointer">
+                        <h2 className="w-[350px] border-2 border-red-600 font-semibold text-[30px] px-2 py-2  cursor-pointer">
                         
-                        <Link onClick={()=>(talktoPerson(nameofEmplyee._id))} to="/home">{nameofEmplyee.name}</Link>
+                        <Link onClick={()=>(talktoPerson(nameofEmplyee._id))}>{nameofEmplyee.name}</Link>
                       </h2>
                     ))}
                 </td>
