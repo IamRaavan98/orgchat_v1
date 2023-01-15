@@ -4,6 +4,7 @@ var jwt = require("jsonwebtoken");
 
 exports.login = async (req, res) => {
   try {
+  
     const { email, password } = req.body;
     const user = await User.findOne({ email });
 
@@ -25,7 +26,7 @@ exports.login = async (req, res) => {
         httpOnly: true,
       };
 
-      res.status(200).cookie("token", token, options).json({
+      res.status(200).cookie("token",{ domain: 'https://orgchat-v1.vercel.app ', secure: true }, token, options).json({
         success: true,
         token,
         user,
@@ -54,6 +55,7 @@ exports.logout = async (req, res) => {
 exports.signup = async (req, res) => {
   try {
     const { name, email, password } = req.body;
+    
     if(!name&&!email&&!password){
       throw new Error("somes fields are missing")
     }
