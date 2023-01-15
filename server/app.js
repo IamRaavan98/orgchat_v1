@@ -14,7 +14,7 @@ const DBconnection = require("./config/DB")
     app.use(express.json())
     app.use(express.urlencoded({ extended: true }));
     app.use(cors({
-    origin: 'http://localhost:3000',
+    origin: 'https://orgchat-v1.vercel.app/',
     credentials: true,
 }));
     DBconnection();
