@@ -1,15 +1,16 @@
 import React from "react";
 import axios from "axios";
 import { useState } from "react";
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink, useNavigate, Link } from "react-router-dom";
 
 const SignUp = () => {
   const [name, setName] = useState(" ");
+  const [id, setId] = useState();
   const [email, setEmail] = useState(" ");
   const [password, setPassword] = useState("");
   const [mandatoryfields, setMandatoryFields] = useState(false);
   const [warning, setWarning] = useState("");
-  const Base_URL = "http://localhost:4000"
+  const Base_URL = "http://localhost:3000";
   //Submit
 
   // console.log(name,"name");
@@ -27,22 +28,20 @@ const SignUp = () => {
           email: email,
           password: password,
         });
-        if (res.data != "user already exists") {
-          navigate("/home", { state: res.config.data });
+        console.log(res);
+        if (res.data != "Email already exists") {
+          setId(res.data.user._id);
         } else {
           setWarning("You are already registerd Please Login");
         }
       } catch (error) {
         console.log(error.message);
       }
-      
     }
   };
 
   return (
     <>
-      
-
       <div className="flex min-h-full items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
         <div className="w-full max-w-md space-y-8">
           <div className="flex flex-col">
@@ -50,12 +49,14 @@ const SignUp = () => {
             <h2 className="mt-6 text-center text-xl font-bold tracking-tight text-gray-900">
               WELCOME, Please Signup
             </h2>
-            <NavLink className="btn btn-primary" to={"/login"}>LogIn</NavLink>
+            <NavLink className="btn btn-primary" to={"/login"}>
+              LogIn
+            </NavLink>
           </div>
 
           {/* for registerd users */}
           <div>
-            <h1 className="text-red-600">{warning}</h1>
+            <h1 className="text-red-600 py-2">{warning}</h1>
           </div>
 
           <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
@@ -78,6 +79,7 @@ const SignUp = () => {
                   className="relative block w-full  rounded-none rounded-t-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
                   placeholder="name"
                   value={name}
+                  onClick={() => setWarning("")}
                   onChange={(event) => setName(event.target.value)}
                 />
 
@@ -90,6 +92,7 @@ const SignUp = () => {
                   required
                   className="relative block w-full appearance-none rounded-none rounded-t-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
                   value={email}
+                  onClick={() => setWarning("")}
                   onChange={(event) => setEmail(event.target.value)}
                 />
               </div>
@@ -139,7 +142,11 @@ const SignUp = () => {
                 type="submit"
                 className="group relative flex w-full justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
               >
-                SignUP
+                {id != null ? (
+                  <Link to={`/home/${id}`}>SignUP</Link>
+                ) : (
+                  <p>SignUp</p>
+                )}
               </button>
             </div>
           </form>

@@ -18,6 +18,15 @@ const userSchema = new mongoose.Schema(
         type:String,
         required: [true, "password is required"],
     },
+    messageCount:[
+      {
+        fromId:String,
+        count:{
+          type:Number,
+          default:0,
+        }
+      }
+    ]
   },
   
   {

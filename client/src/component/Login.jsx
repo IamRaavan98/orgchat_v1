@@ -28,8 +28,7 @@ const Login= () => {
             email: email,
             password: password,
           });
-        
-          
+      
           if (typeof res.data != "string" &&res) {
            setId(res.data.user._id)
 

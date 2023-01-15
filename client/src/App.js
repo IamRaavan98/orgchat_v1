@@ -3,7 +3,7 @@ import {Routes, Route} from "react-router-dom"
 import Home from "./component/Home";
 import Signup from "./component/Signup";
 import Login from "./component/Login";
-import Chat from "./component/Chat";
+
 function App(){
     return(
         <> 

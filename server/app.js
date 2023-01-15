@@ -9,12 +9,12 @@ const message = require("./routes/messageRoute")
 const DBconnection = require("./config/DB")
 
 
-//middleware
-app.use(cookieParser())
-app.use(express.json())
-app.use(express.urlencoded({ extended: true }));
-app.use(cors());
-DBconnection();
-app.use("/",user)
-app.use("/message",message)
-module.exports = app;
+    //middleware
+    app.use(cookieParser())
+    app.use(express.json())
+    app.use(express.urlencoded({ extended: true }));
+    app.use(cors());
+    DBconnection();
+    app.use("/",user)
+    app.use("/message",message)
+    module.exports = app;
