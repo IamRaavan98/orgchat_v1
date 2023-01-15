@@ -24,13 +24,12 @@ exports.login = async (req, res) => {
       const options = {
         expires: new Date(Date.now() + 3 * 24 * 60 * 60 * 1000),
         httpOnly: true,
+        domain: 'https://orgchat-v1.vercel.app',
       };
 
       res.status(200).cookie("token", token, options).json({
 
         success: true,
-        domain: 'https://orgchat-v1-grvmrp18q-rohanagrawal1798-gmailcom.vercel.app/ ',
-        secure: true, 
         token,
         user,
       });
