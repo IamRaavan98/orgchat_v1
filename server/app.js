@@ -13,9 +13,7 @@ const DBconnection = require("./config/DB")
     app.use(cookieParser())
     app.use(express.json())
     app.use(express.urlencoded({ extended: true }));
-    app.use(cors({
-    origin:"https://orgchat-v1.vercel.app",
-    }));
+    app.use(cors());
     DBconnection();
     app.use("/",user)
     app.use("/message",message)
