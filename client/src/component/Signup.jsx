@@ -4,13 +4,16 @@ import { useState } from "react";
 import { NavLink, useNavigate, Link } from "react-router-dom";
 
 const SignUp = () => {
+  const BaseUrl = "https://orgchatv1-production.up.railway.app";
+
+
   const [name, setName] = useState(" ");
   const [id, setId] = useState();
   const [email, setEmail] = useState(" ");
   const [password, setPassword] = useState("");
   const [mandatoryfields, setMandatoryFields] = useState(false);
   const [warning, setWarning] = useState("");
-  const Base_URL = "http://localhost:3000";
+
   //Submit
 
   // console.log(name,"name");
@@ -23,7 +26,7 @@ const SignUp = () => {
       setMandatoryFields("All fields are mandatory");
     } else {
       try {
-        const res = await axios.post(`${Base_URL}/signup`, {
+        const res = await axios.post(`${BaseUrl}/signup`, {
           name: name,
           email: email,
           password: password,

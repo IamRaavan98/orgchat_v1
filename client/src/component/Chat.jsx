@@ -3,7 +3,7 @@ import axios from "axios";
 import { useParams } from "react-router-dom";
 
 const Chat = ({ id, data, talktoPerson,fetchAllusersName }) => {
-  const BaseUrl = "http://localhost:3000/message/addmessage";
+  const BaseUrl = "https://orgchatv1-production.up.railway.app/message/addmessage";
 
   const [loginUserId, setLoginUserId] = useState(null);
   const [message, setMessage] = useState();

@@ -6,13 +6,16 @@ import { NavLink, Route,Link, useNavigate } from "react-router-dom";
 import Home from "./Home";
 
 const Login= () => {
+  const BaseUrl = "https://orgchatv1-production.up.railway.app";
+
+
 
   const [email, setEmail] = useState(" ");
   const [id, setId] = useState();
   const [password, setPassword] = useState("");
   const [mandatoryfields, setMandatoryFields] = useState(false);
   const [warning, setWarning] = useState("");
-  const Base_URL = "http://localhost:3000"
+
 
   //Submit
   const navigate = useNavigate();
@@ -24,7 +27,7 @@ const Login= () => {
     } else {
 
         try {
-          const res = await axios.post(`/login`, {
+          const res = await axios.post(`${BaseUrl}/login`, {
             email: email,
             password: password,
           });
