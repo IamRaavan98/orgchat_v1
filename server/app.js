@@ -13,7 +13,10 @@ const DBconnection = require("./config/DB")
     app.use(cookieParser())
     app.use(express.json())
     app.use(express.urlencoded({ extended: true }));
-    app.use(cors());
+    app.use(cors({
+    origin: 'http://localhost:3000',
+    credentials: true,
+}));
     DBconnection();
     app.use("/",user)
     app.use("/message",message)
