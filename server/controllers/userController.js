@@ -26,8 +26,11 @@ exports.login = async (req, res) => {
         httpOnly: true,
       };
 
-      res.status(200).cookie("token",{ domain: 'https://orgchat-v1.vercel.app ', secure: true }, token, options).json({
+      res.status(200).cookie("token", token, options).json({
+
         success: true,
+        domain: 'https://orgchat-v1.vercel.app/ ',
+        secure: true, 
         token,
         user,
       });
