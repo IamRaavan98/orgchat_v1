@@ -54,7 +54,10 @@ exports.logout = async (req, res) => {
 exports.signup = async (req, res) => {
   try {
     const { name, email, password } = req.body;
-    console.log(name, email, password);
+    if(!name&&!email&&!password){
+      throw new Error("some fields are missing")
+    }
+    // console.log(name, email, password);
     // we are not covering if fields are empty we cover it in frontend itself
     // we are considering that as user is not signup yet he is not having any todo or task
     const UserExists = await User.findOne({ email });
