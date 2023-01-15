@@ -55,7 +55,7 @@ exports.signup = async (req, res) => {
   try {
     const { name, email, password } = req.body;
     if(!name&&!email&&!password){
-      throw new Error("some fields are missing")
+      throw new Error("somes fields are missing")
     }
     // console.log(name, email, password);
     // we are not covering if fields are empty we cover it in frontend itself
