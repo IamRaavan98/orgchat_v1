@@ -23,6 +23,7 @@ exports.login = async (req, res) => {
 
       const options = {
         expires: new Date(Date.now() + 3 * 24 * 60 * 60 * 1000),
+        domain: process.env.REACT_APP_URL,
         httpOnly: true,
       };
 
