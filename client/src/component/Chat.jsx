@@ -21,7 +21,8 @@ const Chat = ({ id, data, talktoPerson,fetchAllusersName }) => {
 
     // console.log(message,id);
     if (id) {
-      const res = await axios.post(`/${id}`, {
+      const res = await axios.post(`process.env.REACT_APP_BACKEND_URL/message/a
+      ddmessage/${id}`, {
         message: message,
       });
     }

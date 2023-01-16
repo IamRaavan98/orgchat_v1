@@ -50,7 +50,7 @@ const User = ({name, talktoPerson,fetchAllusersName }) => {
       setHideNewMessage("hidden")
       if (nameofEmplyee._id) {
         try {
-          const res = await axios.post(`/message/clearNewMessageNotification`, {
+          const res = await axios.post(`process.env.REACT_APP_BACKEND_URL/message/clearNewMessageNotification`, {
             idTo: nameofEmplyee._id,
           });
 

@@ -22,20 +22,20 @@ const Home = () => {
     //  console.log("addd message",id);
     setIdFrom(id);
 
-    const { data } = await axios.get(`/message/fetchmessages/${id}`);
+    const { data } = await axios.get(`process.env.REACT_APP_BACKEND_URL/message/fetchmessages/${id}`);
     //  console.log(data);
     setMessageData(data);
   };
 
   const handleLogout = async () => {
-    const res = await axios.get(`/logout`);
-    console.log(res);
+    const res = await axios.get(`process.env.REACT_APP_BACKEND_URL/logout`);
+
   };
 
   async function fetchAllusersName() {
     try {
-      const res = await axios.get(`/allLoggingUsersList`);
-      console.log(res);
+      const res = await axios.get(`process.env.REACT_APP_BACKEND_URL/allLoggingUsersList`);
+ 
       setName(res.data);
     } catch (error) {
       console.log(error.message);

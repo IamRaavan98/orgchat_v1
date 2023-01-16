@@ -26,12 +26,12 @@ const SignUp = () => {
       setMandatoryFields("All fields are mandatory");
     } else {
       try {
-        const res = await axios.post(`/signup`, {
+        const res = await axios.post(`process.env.REACT_APP_BACKEND_URL/signup`, {
           name: name,
           email: email,
           password: password,
         });
-        console.log(res);
+       
         if (res.data != "Email already exists") {
           setId(res.data.user._id);
         } else {
