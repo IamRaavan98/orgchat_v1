@@ -1,69 +1,61 @@
-import React, {createContext} from "react";
+import React from "react";
 import axios from "axios";
 import { useState } from "react";
-import { NavLink, Route,Link, useNavigate } from "react-router-dom";
+import { NavLink, Link } from "react-router-dom";
 
-import Home from "./Home";
-
-const Login= () => {
-  
-
-
-
+const Login = () => {
   const [email, setEmail] = useState(" ");
   const [id, setId] = useState();
   const [password, setPassword] = useState("");
   const [mandatoryfields, setMandatoryFields] = useState(false);
   const [warning, setWarning] = useState("");
 
-
   //Submit
-  const navigate = useNavigate();
+  // const navigate = useNavigate(); Not used
+
   const handleSubmit = async (e) => {
     e.preventDefault();
- 
+
     if (!email || !password) {
       setMandatoryFields("All fields are mandatory");
     } else {
+      try {
+        const res = await axios.post(`/login`, {
+          email: email,
+          password: password,
+        });
 
-        try {
-          const res = await axios.post(`process.env.REACT_APP_BACKEND_URL/login`, {
-            email: email,
-            password: password,
-          });
-      
-          if (typeof res.data != "string" &&res) {
-           setId(res.data.user._id)
+        if (typeof res.data != "string" && res) {
+          setId(res.data.user._id);
 
-           
           //  navigate(`/home?id=${res.data.user._id}`, { state: res.config.data });
-          
-         } else {
-           setWarning(res.data);
-           setEmail(" ")
-           setPassword(" ")
-         }
-        } catch (error) {
-          console.log("try catch error",error.message);
+        } else {
+          setWarning(res.data);
+          setEmail(" ");
+          setPassword(" ");
         }
-
+      } catch (error) {
+        console.log("try catch error", error.message);
+      }
     }
   };
 
-    function handleEmail(e){
-    
-      setEmail(e);
-    }
+  function handleEmail(e) {
+    setEmail(e);
+  }
+
   return (
     <>
-  <div className="flex min-h-full items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+      <div className="flex min-h-full items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
         <div className="w-full max-w-md space-y-8">
           <div className="flex flex-col">
             <p className="mt-6 text-center text-3xl font-bold">TODO app</p>
             <h2 className="mt-6 text-center text-xl font-bold tracking-tight text-gray-900">
               WELCOME, Please login
             </h2>
-            <NavLink className="btn btn-primary" to={"/signup"}>Signup</NavLink>
+            <NavLink className="btn btn-primary" to={"/signup"}>
+              Signup
+            </NavLink>
           </div>
 
           {/* for registerd users */}
@@ -75,11 +67,9 @@ const Login= () => {
             <input type="hidden" name="remember" defaultValue="true" />
             <div className="-space-y-px rounded-md shadow-sm">
               <div>
-                {mandatoryfields != false ? (
+                {mandatoryfields !== false ? (
                   <p className="text-red-600">*{mandatoryfields}</p>
-                ) : (
-                  " "
-                )}
+                ) : null}
                 <label htmlFor="email-address">Email address</label>
                 <input
                   id="email-address"
@@ -90,7 +80,7 @@ const Login= () => {
                   className="relative block w-full appearance-none rounded-none rounded-t-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
                   value={email}
                   onChange={(event) => handleEmail(event.target.value)}
-                  onClick={()=>setWarning("")}
+                  onClick={() => setWarning("")}
                 />
               </div>
               <div>
@@ -126,12 +116,9 @@ const Login= () => {
               </div>
 
               <div className="text-sm">
-                <a
-                  href="#"
-                  className="font-medium text-indigo-600 hover:text-indigo-500"
-                >
+                <button className="font-medium text-indigo-600 hover:text-indigo-500">
                   Forgot your password?
-                </a>
+                </button>
               </div>
             </div>
 
@@ -140,17 +127,16 @@ const Login= () => {
                 type="submit"
                 className="group relative flex w-full justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
               >
-               {id != null?(<Link to={`/home/${id}`}>Login</Link>):(
-                 <p>LOGIN</p>
-
-               )} 
+                {id != null ? (
+                  <Link to={`/home/${id}`}>Login</Link>
+                ) : (
+                  <p>LOGIN</p>
+                )}
               </button>
-
             </div>
           </form>
         </div>
       </div>
-
     </>
   );
 };

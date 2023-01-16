@@ -4,7 +4,6 @@ var jwt = require("jsonwebtoken");
 
 exports.login = async (req, res) => {
   try {
-  
     const { email, password } = req.body;
     const user = await User.findOne({ email });
 
@@ -21,7 +20,7 @@ exports.login = async (req, res) => {
       // res.status(200).json(user);
 
       // if you want to use cookies
-      
+
       const options = {
         expires: new Date(Date.now() + 3 * 24 * 60 * 60 * 1000),
         domain: process.env.REACT_APP_URL,
@@ -57,11 +56,11 @@ exports.logout = async (req, res) => {
 exports.signup = async (req, res) => {
   try {
     const { name, email, password } = req.body;
-    
-    if(!name&&!email&&!password){
-      throw new Error("somes fields are missing")
+
+    if (!name && !email && !password) {
+      throw new Error("somes fields are missing");
     }
-    // console.log(name, email, password);
+
     // we are not covering if fields are empty we cover it in frontend itself
     // we are considering that as user is not signup yet he is not having any todo or task
     const UserExists = await User.findOne({ email });
@@ -70,7 +69,6 @@ exports.signup = async (req, res) => {
       throw new Error("Email already exists");
     } else {
       const myEncPassword = await bcrypt.hash(password, 10);
-      //  console.log(myEncPassword,password);
 
       const user = await User.create({
         email: email,
@@ -82,7 +80,7 @@ exports.signup = async (req, res) => {
 
       //we are creating todoschema for this email so that data could be stored
 
-      //  token
+      // token
       const token = jwt.sign(
         {
           user_id: user._id,
@@ -111,11 +109,11 @@ exports.signup = async (req, res) => {
   }
 };
 
-exports.allLoggingUsersList =async (req, res)=> {
+exports.allLoggingUsersList = async (req, res) => {
   try {
     const token = req.cookies.token || req.body.token;
     if (!token) {
-      throw new Error("token is missing")
+      throw new Error("token is missing");
     }
     const decode = jwt.verify(token, process.env.SECRET_KEY);
 
@@ -130,12 +128,12 @@ exports.allLoggingUsersList =async (req, res)=> {
     res.status(200).json(data);
   } catch (error) {
     res.status(400).json({
-      success:false,
-      message:error.message
+      success: false,
+      message: error.message,
     });
   }
 };
 
-exports.Home = async(req,res)=>{
-  res.status(400).send("Welcome from backend")
-}
+exports.Home = async (req, res) => {
+  res.status(400).send("Welcome from backend");
+};

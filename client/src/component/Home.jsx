@@ -1,41 +1,28 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-  Link,
-  useParams,
-} from "react-router-dom";
 import Chat from "./Chat";
 import User from "./User";
-const Home = () => {
 
+const Home = () => {
   const [idFrom, setIdFrom] = useState();
   const [messageData, setMessageData] = useState();
   const [name, setName] = useState(false);
 
-  const { id } = useParams();
-
   const talktoPerson = async (id) => {
-    //  console.log("addd message",id);
     setIdFrom(id);
-
-    const { data } = await axios.get(`process.env.REACT_APP_BACKEND_URL/message/fetchmessages/${id}`);
-    //  console.log(data);
+    const { data } = await axios.get(`/message/fetchmessages/${id}`);
     setMessageData(data);
   };
 
   const handleLogout = async () => {
-    const res = await axios.get(`process.env.REACT_APP_BACKEND_URL/logout`);
-
+    await axios.get(`/logout`);
   };
 
   async function fetchAllusersName() {
     try {
-      const res = await axios.get(`process.env.REACT_APP_BACKEND_URL/allLoggingUsersList`);
- 
+      const res = await axios.get(`/allLoggingUsersList`);
       setName(res.data);
     } catch (error) {
       console.log(error.message);
@@ -43,17 +30,15 @@ const Home = () => {
   }
 
   return (
-    <div className="flex flex-row  ">
-      <div className=" flex w-full flex-col">
-        <div className="flex flex-row justify-start
-         h-[70px]  bg-[#120E43] border-4">
-         
-         <button
+    <div className="flex flex-row">
+      <div className="flex w-full flex-col">
+        <div className="flex flex-row justify-start h-[70px] bg-[#120E43] border-4">
+          <button
             type="submit"
-            className="group ml-[20px]   flex h-[50px] justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-[70px] md:px-[100px] text-md font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 "
+            className="group ml-[20px] flex h-[50px] justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-[70px] md:px-[100px] text-md font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
             onClick={() => handleLogout()}
           >
-            <Link to="/login"> Logout</Link>
+            <Link to="/login">Logout</Link>
           </button>
 
           <div className="form-control sm:pl-[100px] md:pl-[200px] lg:pl-[250px]  xl:pl-[400px]  border-4 ">
@@ -81,10 +66,9 @@ const Home = () => {
               </button>
             </div>
           </div>
-      
         </div>
 
-        <div className="flex flex-row"> 
+        <div className="flex flex-row">
           <User
             name={name}
             fetchAllusersName={fetchAllusersName}

@@ -1,12 +1,9 @@
 import React from "react";
 import axios from "axios";
 import { useState } from "react";
-import { NavLink, useNavigate, Link } from "react-router-dom";
+import { NavLink, Link } from "react-router-dom";
 
 const SignUp = () => {
-  
-
-
   const [name, setName] = useState(" ");
   const [id, setId] = useState();
   const [email, setEmail] = useState(" ");
@@ -15,10 +12,8 @@ const SignUp = () => {
   const [warning, setWarning] = useState("");
 
   //Submit
+  // const navigate = useNavigate();
 
-  // console.log(name,"name");
-
-  const navigate = useNavigate();
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -26,13 +21,13 @@ const SignUp = () => {
       setMandatoryFields("All fields are mandatory");
     } else {
       try {
-        const res = await axios.post(`process.env.REACT_APP_BACKEND_URL/signup`, {
+        const res = await axios.post(`/signup`, {
           name: name,
           email: email,
           password: password,
         });
-       
-        if (res.data != "Email already exists") {
+        console.log(res);
+        if (res.data !== "Email already exists") {
           setId(res.data.user._id);
         } else {
           setWarning("You are already registerd Please Login");
@@ -66,7 +61,7 @@ const SignUp = () => {
             <input type="hidden" name="remember" defaultValue="true" />
             <div className="-space-y-px rounded-md shadow-sm">
               <div>
-                {mandatoryfields != false ? (
+                {mandatoryfields !== false ? (
                   <p className="text-red-600">*{mandatoryfields}</p>
                 ) : (
                   " "
@@ -131,12 +126,9 @@ const SignUp = () => {
               </div>
 
               <div className="text-sm">
-                <a
-                  href="#"
-                  className="font-medium text-indigo-600 hover:text-indigo-500"
-                >
+                <button className="font-medium text-indigo-600 hover:text-indigo-500">
                   Forgot your password?
-                </a>
+                </button>
               </div>
             </div>
 
