@@ -13,7 +13,9 @@ const DBconnection = require("./config/DB")
     app.use(cookieParser())
     app.use(express.json())
     app.use(express.urlencoded({ extended: true }));
-    app.use(cors());
+    app.use(cors({
+      origin:"http://192.168.56.1:3000",
+    }));
     DBconnection();
     app.use("/",user)
     app.use("/message",message)
