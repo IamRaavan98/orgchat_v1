@@ -11,7 +11,7 @@ import {
 } from "react-router-dom";
 
 const User = ({name, talktoPerson,fetchAllusersName }) => {
-const BaseUrl = "https://orgchatv1-production.up.railway.app";
+
    
   const [sameUsers, setSameUsers] = useState(true);
   const [loginUserId, setLoginUserId] = useState(null);
@@ -50,7 +50,7 @@ const BaseUrl = "https://orgchatv1-production.up.railway.app";
       setHideNewMessage("hidden")
       if (nameofEmplyee._id) {
         try {
-          const res = await axios.post(`${BaseUrl}/message/clearNewMessageNotification`, {
+          const res = await axios.post(`/message/clearNewMessageNotification`, {
             idTo: nameofEmplyee._id,
           });
 

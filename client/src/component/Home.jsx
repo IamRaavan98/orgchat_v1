@@ -11,7 +11,6 @@ import {
 import Chat from "./Chat";
 import User from "./User";
 const Home = () => {
-  const BaseUrl = "https://orgchatv1-production.up.railway.app";
 
   const [idFrom, setIdFrom] = useState();
   const [messageData, setMessageData] = useState();
@@ -23,19 +22,19 @@ const Home = () => {
     //  console.log("addd message",id);
     setIdFrom(id);
 
-    const { data } = await axios.get(`${BaseUrl}/message/fetchmessages/${id}`);
+    const { data } = await axios.get(`/message/fetchmessages/${id}`);
     //  console.log(data);
     setMessageData(data);
   };
 
   const handleLogout = async () => {
-    const res = await axios.get(`${BaseUrl}/logout`);
+    const res = await axios.get(`/logout`);
     console.log(res);
   };
 
   async function fetchAllusersName() {
     try {
-      const res = await axios.get(`${BaseUrl}/allLoggingUsersList`);
+      const res = await axios.get(`/allLoggingUsersList`);
       console.log(res);
       setName(res.data);
     } catch (error) {

@@ -3,7 +3,7 @@ import axios from "axios";
 import { useParams } from "react-router-dom";
 
 const Chat = ({ id, data, talktoPerson,fetchAllusersName }) => {
-  const BaseUrl = "https://orgchatv1-production.up.railway.app/message/addmessage";
+  
 
   const [loginUserId, setLoginUserId] = useState(null);
   const [message, setMessage] = useState();
@@ -21,7 +21,7 @@ const Chat = ({ id, data, talktoPerson,fetchAllusersName }) => {
 
     // console.log(message,id);
     if (id) {
-      const res = await axios.post(`${BaseUrl}/${id}`, {
+      const res = await axios.post(`/${id}`, {
         message: message,
       });
     }

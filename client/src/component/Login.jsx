@@ -6,7 +6,7 @@ import { NavLink, Route,Link, useNavigate } from "react-router-dom";
 import Home from "./Home";
 
 const Login= () => {
-  const BaseUrl = "https://orgchatv1-production.up.railway.app";
+  
 
 
 
@@ -27,7 +27,7 @@ const Login= () => {
     } else {
 
         try {
-          const res = await axios.post(`${BaseUrl}/login`, {
+          const res = await axios.post(`/login`, {
             email: email,
             password: password,
           });
